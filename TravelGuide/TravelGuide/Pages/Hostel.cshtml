@@ -1,22 +1,31 @@
 ﻿@page
 @model TravelGuide.Pages.Hostel
-
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "Хостел";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-9 col-12-medium">
+            <header>
+                <h2>Хостел</h2>
+                <ul class="meta">
+                    <li class="icon fa-clock">
+                        @{
+                            string lastUpdate = "19";
+                        }
+                        @lastUpdate</li>
+                </ul>
+            </header>
             <a href="#" class="image featured">
                 <img src="images/hostel.jpg" alt=""/>
             </a>
 
-            <div>
-                <h1>Хостел</h1>
-            </div>
             <p>
                 Гости города останавливаются в&nbsp;хостеле. Количество ночей не&nbsp;ограничено.
+            </p>
+            <p>
+                Из услуг в Hostel Inn:
             </p>
             <ul>
                 <li>
@@ -29,15 +38,16 @@
                     Чистое постельное белье и&nbsp;полотенца
                 </li>
             </ul>
+            <br/>
+            <p>
+                Двухместная комната 2000&nbsp;рублей/сутки.
+                <br/>
+                Двенадцатиместная 700&nbsp;рублей/сутки.
+            </p>
             <a href="#" class="image featured">
                 <img src="images/hostelin.jpg" alt=""/>
             </a>
-            <p>
-                Двухместная комната 2000&nbsp;рублей/сутки.
-            </p>
-            <p>
-                Двенадцатиместная 700&nbsp;рублей/сутки.
-            </p>
+
         </div>
         <div class="col-3 col-12-medium">
             <div class="sidebar">
@@ -50,29 +60,28 @@
                     </a>
                 </section>
                 <ul class="divided">
-                                    <li>
-                                        <article class="box post-summary">
-                                            <h3>
-                                                <a href="https://hostel-inn.ru/">Сайт Hostel-Inn</a>
-                                            </h3>
-                                        </article>
-                                    </li>
-                                    <li>
-                                        <article class="box post-summary">
-                                            <h3>
-                                                <a href="https://vk.com/hostelinn">Группа Вконтакте</a>
-                                            </h3>
-                                        </article>
-                                    </li>
-                                    <li>
-                                        <article class="box post-summary">
-                                            <h3>
-                                                <a href="https://telegram.me/hostelinn_innopolis">Группа Telegram</a>
-                                            </h3>
-                                        </article>
-                                    </li>
-                                </ul>
-
+                    <li>
+                        <article class="box post-summary">
+                            <h3>
+                                <a href="https://hostel-inn.ru/">Сайт Hostel-Inn</a>
+                            </h3>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="box post-summary">
+                            <h3>
+                                <a href="https://vk.com/hostelinn">Группа Вконтакте</a>
+                            </h3>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="box post-summary">
+                            <h3>
+                                <a href="https://telegram.me/hostelinn_innopolis">Группа Telegram</a>
+                            </h3>
+                        </article>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

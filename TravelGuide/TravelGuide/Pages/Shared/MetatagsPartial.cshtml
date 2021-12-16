@@ -1,13 +1,13 @@
 ﻿
 
-<title>TravelGuide</title>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-@if (ViewBag.Title != null)
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+@if (ViewData["Title"] != null)
 {
-    <title>@ViewBag.Title</title>
+    <title>@ViewData["Title"] Иннополис</title>
 }
 else
 {
-    <title>Start</title>
+    <title>Travel Guide</title>
 }
