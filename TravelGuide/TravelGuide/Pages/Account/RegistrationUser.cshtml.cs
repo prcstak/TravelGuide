@@ -1,35 +1,52 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using DataBase.Access;
+using DataBase.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace TravelGuide.Pages.Account
 {
     public class RegistrationUser : PageModel
     {
+        private readonly PersonContext db;
+        public RegistrationUser(PersonContext _db)
+        {
+            db = _db;
+        }
+        
         [BindProperty]
-        public GetInfo GetInfo { get; set; }
+        public Person GetInfo { get; set; }
         
         public void OnGet()
         {
             
         }
-    }
 
-    public class GetInfo
-    {
-        [EmailAddress(ErrorMessage = "Некорректный Email-адрес")]
-        [Required(ErrorMessage = "Необходимо ввести Email")]
-        public string Email { get; set; }
-        
-        [Required(ErrorMessage = "Полезная информация для аккаунта")]
-        public string PhoneNumber { get; set; }
-        
-        [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$", ErrorMessage = "Неверный пароль")]
-        [Required(ErrorMessage = "Необходимо придумать пароль")]
-        public string Password { get; set; }
-        
-        [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
-        [Required(ErrorMessage = "Необходимо повторить ввод пароль")]
-        public string PasswordConfirm { get; set; }
+        public async Task<IActionResult> OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                Person person = await db.Person.FirstOrDefaultAsync(u => u.Email == GetInfo.Email);
+                if (person == null)
+                {
+                    // добавляем пользователя в бд
+                    db.Person.Add(
+                        new Person()
+                        {
+                            Email = GetInfo.Email,
+                            Password = GetInfo.Password,
+                            PhoneNumber = GetInfo.PhoneNumber
+                        });
+                    await db.SaveChangesAsync();
+                    await Authentication.Authenticate(GetInfo.Email, HttpContext);
+                    return RedirectToPage("/Index");
+                }
+            }
+
+            return Page();
+        }
     }
 }

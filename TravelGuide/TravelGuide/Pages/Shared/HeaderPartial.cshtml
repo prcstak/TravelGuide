@@ -51,5 +51,14 @@
         <li>
             <a asp-page="Account/Authorization">Войти</a>
         </li>
+        <li>
+            @if(User.Identity.IsAuthenticated)
+            {
+                <form method="post" asp-page="/Account/Logout">
+                    <input type="submit" value="Выход" />
+                </form>
+            }
+            
+        </li>
     </ul>
 </nav>

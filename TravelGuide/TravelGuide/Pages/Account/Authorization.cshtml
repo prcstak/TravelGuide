@@ -11,21 +11,27 @@
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="form-group col-md-5 mx-auto">
             <label asp-for="Profile.Email">Email</label>
-            <input type="text" class="form-control" asp-for="Profile.Email" aria-describedby="emailHelp" placeholder="Inavov@example.forg">
+            <input type="text" class="form-control" asp-for="Profile.Email" aria-describedby="emailHelp" placeholder="">
+            <span class="text-black-50">Inavov@example.frog</span>
             <span class="text-danger" asp-validation-for="Profile.Email"></span>
         </div>
         <div class="form-group col-md-5 mx-auto">
             <label asp-for="Profile.Password">Пароль</label>
-            <input type="password" class="form-control" asp-for="Profile.Password"  placeholder="Пароль">
+            <input type="password" class="form-control" asp-for="Profile.Password"  placeholder="">
             <span class="text-danger" asp-validation-for="Profile.Password"></span>
         </div>
+        <div class="form-group col-md-5 mx-auto">
+                    <label asp-for="Profile.PasswordConfirm">Опять пароль</label>
+                    <input type="text" class="form-control" asp-for="Profile.PasswordConfirm" placeholder="">
+                    <span class="text-danger" asp-validation-for="Profile.PasswordConfirm"></span>
+                </div>
         <div class="form-group col-md-5 mx-auto">
             <input type="submit" class="btn btn-success btn-ms btn-block">
 
         </div>
     </form>
     <div class="form-group col-md-5 mx-auto">
-                <a role="button" class="btn btn-outline-success btn-sm btn-block" asp-page="RegistrationUser">Создать</a>
-            </div>
+        <a role="button" class="btn btn-outline-success btn-sm btn-block" asp-page="RegistrationUser">Создать</a>
+    </div>
     
 </div>
