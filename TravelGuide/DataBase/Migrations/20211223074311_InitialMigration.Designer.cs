@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    [Migration("20211222135655_InitialMigration")]
+    [Migration("20211223074311_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,14 +28,9 @@ namespace DataBase.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordConfirm")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")

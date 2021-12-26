@@ -1,0 +1,37 @@
+﻿@page
+@using System.Security.Claims
+@model TravelGuide.Pages.Account.Profile
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Профиль</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <ul class="list-group-flush">
+                <li class="list-group-item">
+                    <h5>Email</h5>
+                    @Model.Person.Email
+                </li>
+                <li class="list-group-item">
+                    <h5>Phone</h5>
+                    @Model.Person.PhoneNumber
+
+                </li>
+                <li class="list-group-item">
+                    <a class="btn btn-outline-success btn-sm" asp-page="/Account/Edit" asp-route-id="@Model.Person.Id" style="text-decoration: none">Редактировать данные</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -26,14 +26,9 @@ namespace DataBase.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordConfirm")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")

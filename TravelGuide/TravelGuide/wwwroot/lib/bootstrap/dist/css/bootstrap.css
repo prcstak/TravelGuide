@@ -160,7 +160,7 @@ a {
 
 a:hover {
   color: #0056b3;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]):not([tabindex]) {
@@ -2376,6 +2376,7 @@ textarea.form-control {
 }
 
 .btn {
+  text-decoration: none;
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -2758,12 +2759,14 @@ fieldset:disabled a.btn {
 .btn-outline-success {
   color: #28a745;
   border-color: #28a745;
+  text-decoration: none
 }
 
 .btn-outline-success:hover {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745;
+  text-decoration: none
 }
 
 .btn-outline-success:focus, .btn-outline-success.focus {
@@ -9965,7 +9968,7 @@ a.text-dark:hover, a.text-dark:focus {
     box-shadow: none !important;
   }
   a:not(.btn) {
-    text-decoration: underline;
+    text-decoration: none;
   }
   abbr[title]::after {
     content: " (" attr(title) ")";

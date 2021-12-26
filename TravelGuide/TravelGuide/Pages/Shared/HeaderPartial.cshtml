@@ -8,57 +8,49 @@
             <a asp-page="/Index">Меню</a>
             <ul>
                 <li>
-                    <a asp-page="Transport">Транспорт</a>
+                    <a asp-page="/Info/Transport">Транспорт</a>
                     <ul>
                         <li>
-                            <a asp-page="Transport">Информация</a>
+                            <a asp-page="/Info/Transport">Информация</a>
                         </li>
                         <li>
-                            <a asp-page="TransportSchedule">Расписание</a>
+                            <a asp-page="/Info/TransportSchedule">Расписание</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a asp-page="Hostel">Проживание</a>
+                    <a asp-page="/Info/Hostel">Проживание</a>
                     <ul>
                         <li>
-                            <a asp-page="Hostel">Хостел</a>
+                            <a asp-page="/Info/Hostel">Хостел</a>
                         </li>
                         <li>
-                            <a asp-page="RentalApartment">Аренда</a>
+                            <a asp-page="/Info/RentalApartment">Аренда</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a asp-page="Food">Питание</a>
-                </li>
-                <li>
-                    <a asp-page="Attraction">Что посмотреть</a>
-                    <ul>
-                        <li>
-                            <a href="#">п1</a>
-                        </li>
-                        <li>
-                            <a href="#">п2</a>
-                        </li>
-                        <li>
-                            <a href="#">п3</a>
-                        </li>
-                    </ul>
+                    <a asp-page="/Info/Food">Питание</a>
                 </li>
             </ul>
         </li>
-        <li>
-            <a asp-page="Account/Authorization">Войти</a>
-        </li>
-        <li>
-            @if(User.Identity.IsAuthenticated)
-            {
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li>
+                <a asp-page="/Account/Profile" asp-route-id="@User.Identity.Name">Профиль</a>
+            </li>
+            <li>
                 <form method="post" asp-page="/Account/Logout">
-                    <input type="submit" value="Выход" />
+                    <a href="javascript:$('form').submit()">Выйти</a>
                 </form>
-            }
-            
-        </li>
+            </li>
+        }
+        else
+        {
+            <li>
+
+                <a asp-page="/Account/Authorization">Войти</a>
+            </li>
+        }
     </ul>
 </nav>

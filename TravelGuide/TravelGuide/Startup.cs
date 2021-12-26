@@ -28,14 +28,16 @@ namespace TravelGuide
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddSession();
             services.AddDbContext<PersonContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("conString")));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Authorization");
+                    options.LoginPath = new PathString("/Account/Authorization");
+                    options.AccessDeniedPath = new PathString("/Account/Authorization");
                 });
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,8 +53,11 @@ namespace TravelGuide
             app.UseStaticFiles();
 
             app.UseRouting();
+            
+            app.UseSession();
 
             app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

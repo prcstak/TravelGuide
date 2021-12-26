@@ -13,10 +13,9 @@ namespace DataBase.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Email = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    PasswordConfirm = table.Column<string>(type: "text", nullable: true)
+                    Password = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
