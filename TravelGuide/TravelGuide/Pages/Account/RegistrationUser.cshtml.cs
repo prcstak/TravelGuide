@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using TravelGuide.Pages.Account; 
 
 namespace TravelGuide.Pages.Account
 {
@@ -38,7 +39,7 @@ namespace TravelGuide.Pages.Account
                     person = new Person()
                     {
                         Email = GetInfo.Email,
-                        Password = GetInfo.Password,
+                        Password = Hash.GetHash(GetInfo.Password),
                         PhoneNumber = GetInfo.PhoneNumber
                     };
                     db.Person.Add(person);

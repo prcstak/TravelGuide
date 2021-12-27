@@ -39,7 +39,8 @@ namespace TravelGuide.Pages.Account
             string s = null;
             if (ModelState.IsValid)
             {
-                Person person = await db.Person.FirstOrDefaultAsync(u => u.Email == UserInfo.Email  && u.Password == UserInfo.Password);
+                Person person = await db.Person.FirstOrDefaultAsync(u => u.Email == UserInfo.Email
+                                                                         && u.Password == Hash.GetHash(UserInfo.Password));
                 if (person != null)
                 {
                     await Authentication.Authenticate(person, HttpContext);
