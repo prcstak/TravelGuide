@@ -28,8 +28,11 @@ namespace TravelGuide
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();
-            services.AddDbContext<PersonContext>(options =>
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+            });
+            services.AddDbContext<Context>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("conString")));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions

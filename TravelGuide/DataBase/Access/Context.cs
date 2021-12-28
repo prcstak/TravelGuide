@@ -3,13 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataBase.Access
 {
-    public class PersonContext : DbContext
+    public class Context : DbContext
     {
-        public PersonContext(DbContextOptions options) : base(options)
+        public Context(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
         }
         
         public DbSet<Person> Person { get; set; }
+        public DbSet<Schedule> Schedule { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

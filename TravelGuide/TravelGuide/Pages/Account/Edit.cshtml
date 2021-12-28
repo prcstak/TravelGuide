@@ -19,12 +19,24 @@
         <input type="hidden" asp-for="Person.Id"/>
         <ul class="list-group">
             <div class="row">
-                <div class="col-3 col-6-medium col-12-small"></div>
+                <div class="col-1"></div>
                 <div class="col-3 col-6-medium col-12-small">
                     <li class="list-group-item">
-                        <label asp-for="GetInfo.PhoneNumber">Phone</label>
+                        <label asp-for="GetInfo.PhoneNumber">Телефон</label>
                         <input type="text" asp-for="GetInfo.PhoneNumber" class="form-control" value="@Model.Person.PhoneNumber">
-                        <span asp-validation-for="GetInfo.PhoneNumber"></span>
+                        <span asp-validation-for="GetInfo.PhoneNumber" class="text-danger"></span>
+                    </li>
+                </div>
+                <div class="col-3 col-6-medium col-12-small">
+                    <li class="list-group-item">
+                        <label asp-for="GetInfo.FirstName">Имя</label>
+                        <input type="text" asp-for="GetInfo.FirstName" class="form-control" value="@Model.Person.FirstName">
+                        <span asp-validation-for="GetInfo.FirstName" class="text-danger"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <label asp-for="GetInfo.LastName">Фамилия</label>
+                        <input type="text" asp-for="GetInfo.LastName" class="form-control" value="@Model.Person.LastName">
+                        <span asp-validation-for="GetInfo.LastName" class="text-danger"></span>
                     </li>
                 </div>
                 <div class="col-3 col-6-medium col-12-small">

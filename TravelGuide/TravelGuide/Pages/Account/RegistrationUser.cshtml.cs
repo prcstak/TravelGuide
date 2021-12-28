@@ -14,8 +14,8 @@ namespace TravelGuide.Pages.Account
 {
     public class RegistrationUser : PageModel
     {
-        private readonly DataBase.Access.PersonContext db;
-        public RegistrationUser(DataBase.Access.PersonContext _db)
+        private readonly DataBase.Access.Context db;
+        public RegistrationUser(DataBase.Access.Context _db)
         {
             db = _db;
         }
@@ -42,10 +42,17 @@ namespace TravelGuide.Pages.Account
                         Password = Hash.GetHash(GetInfo.Password),
                         PhoneNumber = GetInfo.PhoneNumber
                     };
+                    
+                    Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                    if (userRole != null)
+                        person.Role = userRole;
                     db.Person.Add(person);
                         
                     await db.SaveChangesAsync();
-                    await Authentication.Authenticate(person, HttpContext);
+                    if (GetInfo.RememberMe)
+                    {
+                        await Authentication.Authenticate(person, HttpContext);
+                    }
                     return RedirectToPage("/Index");
                 }
                 else

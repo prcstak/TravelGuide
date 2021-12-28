@@ -1,0 +1,48 @@
+﻿@page
+@using TravelGuide.Pages
+@model TravelGuide.Pages.TransportSchedule
+
+@{
+    ViewData["Title"] = "Расписание";
+}
+
+<div class="container">
+    <input type="hidden" asp-for="Person.Id"/>
+    <div class="row">
+        <div class="col-9 col-12-medium">
+            @Model.Person.Role.Name
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Время</th>
+                    <th scope="col">Остановка</th>
+                    <th scope="col">До</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Schedules)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.From)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.To)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                            <form method="post">
+                                <input type="hidden" name="id" value="@item.Id"/>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

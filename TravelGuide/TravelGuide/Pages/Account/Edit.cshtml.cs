@@ -10,14 +10,14 @@ namespace TravelGuide.Pages.Account
 {
     public class Edit : PageModel
     {
-        private readonly DataBase.Access.PersonContext db;
+        private readonly DataBase.Access.Context db;
 
-        public Edit(DataBase.Access.PersonContext _db)
+        public Edit(DataBase.Access.Context _db)
         {
             db = _db;
         }
 
-        [BindProperty] public EditedInfo GetInfo { get; set; }
+        [BindProperty] public GetInfo GetInfo { get; set; }
         [BindProperty] public Person Person { get; set; }
 
         public async Task<IActionResult> OnGet(int? id)
@@ -29,8 +29,10 @@ namespace TravelGuide.Pages.Account
 
         public async Task<IActionResult> OnPost(int? id)
         {
-            Person = await db.Person.FirstOrDefaultAsync(u => u.Id == id);
+            Person = await db.Person.Include(u=>u.Role).FirstOrDefaultAsync(u => u.Id == id);
             Person.PhoneNumber = GetInfo.PhoneNumber;
+            Person.FirstName = GetInfo.FirstName;
+            Person.LastName = GetInfo.LastName;
             db.Attach(Person).State = EntityState.Modified;
             await db.SaveChangesAsync();
 
@@ -38,21 +40,5 @@ namespace TravelGuide.Pages.Account
 
             return RedirectToPage("/Account/Profile", new {id = Person.Id});
         }
-    }
-
-    public class EditedInfo
-    {
-        [EmailAddress(ErrorMessage = "Некорректный Email-адрес")]
-        [Required(ErrorMessage = "Не указан Email")]
-        public string? Email { get; set; }
-
-        public string? PhoneNumber { get; set; }
-
-        [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$", ErrorMessage = "Слишком простой пароль")]
-        public string? Password { get; set; }
-
-        [Compare("Password", ErrorMessage = "Пароль введен неверно")]
-        [Required(ErrorMessage = "Не указан пароль")]
-        public string? PasswordConfirm { get; set; }
     }
 }

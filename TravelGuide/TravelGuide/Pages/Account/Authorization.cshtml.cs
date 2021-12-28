@@ -6,6 +6,7 @@ using DataBase.Access;
 using DataBase.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,8 +17,8 @@ namespace TravelGuide.Pages.Account
 {
     public class AuthorizationModel : PageModel
     { 
-        private readonly DataBase.Access.PersonContext db;
-        public AuthorizationModel(DataBase.Access.PersonContext _db)
+        private readonly DataBase.Access.Context db;
+        public AuthorizationModel(DataBase.Access.Context _db)
         {
             db = _db;
         }
@@ -36,14 +37,22 @@ namespace TravelGuide.Pages.Account
 
         public async Task<IActionResult> OnPost()
         {
-            string s = null;
             if (ModelState.IsValid)
             {
-                Person person = await db.Person.FirstOrDefaultAsync(u => u.Email == UserInfo.Email
-                                                                         && u.Password == Hash.GetHash(UserInfo.Password));
+                Person person = await db.Person.
+                    Include(u=>u.Role).
+                    FirstOrDefaultAsync(u => u.Email == UserInfo.Email 
+                                             && u.Password == Hash.GetHash(UserInfo.Password));
                 if (person != null)
                 {
-                    await Authentication.Authenticate(person, HttpContext);
+                    if (UserInfo.RememberMe)
+                    {
+                        await Authentication.Authenticate(person, HttpContext);
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetInt32("id", person.Id);
+                    }
                     return RedirectToPage("/Index");
                 }
                 else

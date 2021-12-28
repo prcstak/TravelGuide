@@ -1,5 +1,6 @@
 ﻿@page
 @using System.Security.Claims
+@using DataBase.Models
 @model TravelGuide.Pages.Account.Profile
 
 @{
@@ -16,15 +17,23 @@
 <div class="container">
     <div class="row">
         <div class="col-3">
+            @Html.DisplayForModel(Model.Person)
             <ul class="list-group-flush">
+                <li class="list-group-item">
+                    <h5>Имя</h5>
+                    @Model.Person.FirstName
+                </li>
+                <li class="list-group-item">
+                    <h5>Фамилия</h5>
+                    @Model.Person.LastName
+                </li>
                 <li class="list-group-item">
                     <h5>Email</h5>
                     @Model.Person.Email
                 </li>
                 <li class="list-group-item">
-                    <h5>Phone</h5>
+                    <h5>Телефон</h5>
                     @Model.Person.PhoneNumber
-
                 </li>
                 <li class="list-group-item">
                     <a class="btn btn-outline-success btn-sm" asp-page="/Account/Edit" asp-route-id="@Model.Person.Id" style="text-decoration: none">Редактировать данные</a>

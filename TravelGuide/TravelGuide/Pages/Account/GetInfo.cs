@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TravelGuide.Pages.Account
 {
@@ -9,7 +8,9 @@ namespace TravelGuide.Pages.Account
         [Required(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }
         
-        public string? PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         
         [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$", ErrorMessage = "Слишком простой пароль")]
         [Required(ErrorMessage = "Не указан пароль")]
@@ -17,5 +18,7 @@ namespace TravelGuide.Pages.Account
         
         [Compare("Password", ErrorMessage = "Пароль введен неверно")]
         public string PasswordConfirm { get; set; }
+        
+        public bool RememberMe { get; set; }
     }
 }
