@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using DataBase.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +21,18 @@ namespace TravelGuide.Pages.Account
         [BindProperty] public GetInfo GetInfo { get; set; }
         [BindProperty] public Person Person { get; set; }
 
-        public async Task<IActionResult> OnGet(int? id)
+        public async Task<IActionResult> OnGet()
         {
+            int? id;
+            if (User.Identity.IsAuthenticated)
+            {
+                id = Int32.Parse(User.Identity.Name);
+            }
+
+            else
+            {
+                id = HttpContext.Session.GetInt32("id");
+            }
             Person = await db.Person.FirstOrDefaultAsync(p => p.Id == id);
 
             return Page();

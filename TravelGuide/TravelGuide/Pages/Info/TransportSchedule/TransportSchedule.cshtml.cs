@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
+using DataBase.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using DataBase.Models;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using TravelGuide.Pages.Info.TransportSchedule;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace TravelGuide.Pages
 {
@@ -22,19 +22,27 @@ namespace TravelGuide.Pages
         }
         
         public Person Person { get; set; }
-        public async Task<IActionResult> OnGet(int? id)
+        public async Task<IActionResult> OnGet()
         {
+            int? id;
+            if (User.Identity.IsAuthenticated)
+            {
+                id = Int32.Parse(User.Identity.Name);
+            }
+
+            else
+            {
+                id = HttpContext.Session.GetInt32("id");
+            }
             Person = db.Person
                 .Include(p => p.Role)
                 .FirstOrDefault(p => p.Id == id);
-            if (Person?.RoleId == 2)
+            if (Person?.RoleId == 1)
             {
-                return RedirectToPage("/Info/TransportSchedule/TransportScheduleAdmin");
+                return RedirectToPage("./TransportScheduleAdmin");
             }
             Schedules =  await db.Schedule.ToListAsync();
-            
             return Page();
-
         }
 
         public void OnPost()

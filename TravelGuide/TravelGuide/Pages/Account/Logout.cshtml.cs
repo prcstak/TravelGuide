@@ -11,12 +11,14 @@ namespace TravelGuide.Pages.Account
         public async Task<IActionResult> OnGet()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("id");
             return RedirectToPage("/Index");
         }
         
         public async Task<IActionResult> OnPost()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("id");
             return RedirectToPage("/Index");
         }
     }

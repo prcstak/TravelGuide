@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
+
 <h6 class="text-hide" id="logo">Innopolis TravelGuide</h6>
 <nav id="nav">
     <ul>
@@ -15,7 +16,7 @@
                             <a asp-page="/Info/Transport">Информация</a>
                         </li>
                         <li>
-                            <a asp-page="/Info/TransportSchedule/TransportSchedule" asp-route-id="1">Расписание</a>
+                            <a asp-page="/Info/TransportSchedule/TransportSchedule">Расписание</a>
                         </li>
                     </ul>
                 </li>
@@ -35,11 +36,11 @@
                 </li>
             </ul>
         </li>
-        @if (User.Identity.IsAuthenticated 
-             || Context.Session.GetString("id")!=null)
+        @if (User.Identity.IsAuthenticated
+             || Context.Session.GetString("id") != null)
         {
             <li>
-                <a asp-page="/Account/Profile" asp-route-id="@Model.UserId">Профиль</a>
+                <a asp-page="/Account/Profile">Профиль</a>
             </li>
             <li>
                 <form method="post" asp-page="/Account/Logout">

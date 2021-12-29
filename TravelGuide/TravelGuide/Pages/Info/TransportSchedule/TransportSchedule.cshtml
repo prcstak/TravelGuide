@@ -1,5 +1,4 @@
 ﻿@page
-@using TravelGuide.Pages
 @model TravelGuide.Pages.TransportSchedule
 
 @{
@@ -7,10 +6,8 @@
 }
 
 <div class="container">
-    <input type="hidden" asp-for="Person.Id"/>
     <div class="row">
         <div class="col-9 col-12-medium">
-            @Model.Person.Role.Name
             <table class="table">
                 <thead>
                 <tr>
@@ -31,13 +28,6 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.To)
-                        </td>
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                            <form method="post">
-                                <input type="hidden" name="id" value="@item.Id"/>
-                            </form>
                         </td>
                     </tr>
                 }
