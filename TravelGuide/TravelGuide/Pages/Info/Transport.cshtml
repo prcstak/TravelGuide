@@ -7,8 +7,9 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-9 col-12-medium">
+        <div class="col-sm-12 col-lg-9">
             <header>
+                <div class="text-white">_</div>
                 <h2>Как добраться</h2>
                 <ul class="meta">
                     <li class="icon fa-clock">5 days ago</li>
@@ -19,6 +20,9 @@
             </header>
             <div class="d-none d-md-block">
                 <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae95e47dfd88c5702db508e319d6f1de3ecc80efc8bd14aef7df94a5aca1aba34&amp;width=754&amp;height=400&amp;lang=ru_RU&amp;scroll=false"></script>
+            </div>
+            <div class="d-block d-md-none">
+                <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae95e47dfd88c5702db508e319d6f1de3ecc80efc8bd14aef7df94a5aca1aba34&amp;width=300&amp;height=160&amp;lang=ru_RU&amp;scroll=false"></script>
             </div>
             <br/>
             Из Казани до Иннополиса можно добрать двумя автобусными маршрутами — от комбината «Здоровье» и от автовокзала «Восточный».
@@ -31,28 +35,33 @@
             <br/>
             Действуют льготные билеты для детей до 7 лет — 60 рублей (при предъявлении оригинала свидетельства о рождении ребенка водителю).
         </div>
-        <div class="col-3 col-12-medium">
+        <div class="col-lg-3 col-sm-12">
             <div class="sidebar">
                 <section>
                     <h2 class="major">
-                        <span>InnoBus Bot</span>
+                        <a asp-page="/Info/TransportSchedule/TransportSchedule">
+                            <span>Расписание</span>
+                        </a>
                     </h2>
-                    <a href="https://t.me/innobus" class="image featured">
-                        <img src="/images/bus.jpg" alt=""/>
+                    <a asp-page="/Info/TransportSchedule/TransportSchedule" class="image featured ">
+                        <img src="/images/schedulejpg.jpg" class="d-none d-md-block" alt=""/>
                     </a>
+
                     <p>
-                        Городской бот, в котором можно посмотреть расписание автобусов и отслеживать их движение
+                        Здесь можно посмотреть расписание автобусов до Иннополиса.
                     </p>
                 </section>
                 <section>
                     <h2 class="major">
-                        <span>Расписание</span>
+                        <a href="https://t.me/innobus">
+                            <span>InnoBus Bot</span>
+                        </a>
                     </h2>
-                    <a asp-page="/Info/TransportSchedule/TransportSchedule" class="image featured">
-                        <img src="/images/schedulejpg.jpg" alt=""/>
+                    <a href="https://t.me/innobus" class="image featured">
+                        <img src="/images/bus.jpg" class="d-none d-md-block" alt=""/>
                     </a>
                     <p>
-                        Здесь мжно посмотреть расписание автобусов до Иннополиса.
+                        Городской бот, в котором можно посмотреть расписание автобусов и отслеживать их движение
                     </p>
                 </section>
             </div>

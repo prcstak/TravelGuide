@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-9 col-12-medium">
+        <div class="col-sm-12 col-lg-9">
             <header>
                 <h2>Хостел</h2>
                 <ul class="meta">
@@ -14,7 +14,8 @@
                         @{
                             string lastUpdate = "19 days";
                         }
-                        @lastUpdate</li>
+                        @lastUpdate
+                    </li>
                 </ul>
             </header>
             <a href="#" class="image featured">
@@ -49,17 +50,26 @@
             </a>
 
         </div>
-        <div class="col-3 col-12-medium">
+        <div class="col-lg-3 col-sm-12">
             <div class="sidebar">
-                <section>
+                <section class="d-none d-md-block">
                     <h2 class="major">
-                        <span>Квартиры в аренду</span>
+                        <a asp-page="/Info/RentalApartment" class="image featured">
+                            <span>Квартиры в аренду</span>
+                        </a>
                     </h2>
-                    <a asp-page="Info/RentalApartment" class="image featured">
-                        <img src="/images/rent.jpg" alt=""/>
+                    <a asp-page="/Info/RentalApartment" class="image featured">
+                        <img src="/images/rent.jpg"  alt=""/>
                     </a>
                 </section>
                 <ul class="divided">
+                    <li class="d-block d-md-none">
+                        <article class="box post-summary">
+                            <h3>
+                                <a asp-page="/Info/RentalApartment">Квартиры в аренду</a>
+                            </h3>
+                        </article>
+                    </li>
                     <li>
                         <article class="box post-summary">
                             <h3>
