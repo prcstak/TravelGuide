@@ -3,15 +3,17 @@ using System;
 using DataBase.Access;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataBase.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220103171337_AddAdvertisement")]
+    partial class AddAdvertisement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,17 +99,8 @@ namespace DataBase.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Duration")
-                        .HasColumnType("text");
-
                     b.Property<string>("Info")
                         .HasColumnType("text");
-
-                    b.Property<int>("Rooms")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

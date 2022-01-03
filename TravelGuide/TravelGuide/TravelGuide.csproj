@@ -18,6 +18,10 @@
       <ProjectReference Include="..\DataBase\DataBase.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\images\RentImg" />
+    </ItemGroup>
+
    
     
 </Project>

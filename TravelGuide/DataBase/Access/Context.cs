@@ -1,4 +1,6 @@
-﻿using DataBase.Models;
+﻿using System.Linq;
+using System.Text;
+using DataBase.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataBase.Access
@@ -7,11 +9,13 @@ namespace DataBase.Access
     {
         public Context(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+            /*Database.EnsureCreated();*/
         }
-        
+
         public DbSet<Person> Person { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
         public DbSet<Role> Roles { get; set; }
+        
+        public DbSet<Аdvertisement> Advertisement { get; set; }
     }
 }

@@ -1,0 +1,43 @@
+﻿@page
+@model TravelGuide.Pages.Info.RentApartment.Create
+
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group col-md-5 mx-auto">
+            <label for="Files">Загрузить фото</label>
+            <input type="file" name="Files" id="Files" multiple/>
+        </div>
+        <div class="form-group col-md-5 mx-auto">
+            <label asp-for="Advertisement.Info">Описане</label>
+            <textarea asp-for="Advertisement.Info" class="form-control"></textarea>
+        </div>
+        <div class="mx-auto row col-md-5">
+            <div class="form-group col-md-5 mx-auto">
+                <label asp-for="Advertisement.Duration">Срок аренды</label>
+                <input type="text" asp-for="Advertisement.Duration" class="form-control"/>
+            </div>
+            <div class="form-group col-md-5 mx-auto">
+                <label asp-for="Advertisement.Rooms">Комнат</label>
+                <input type="tel" asp-for="Advertisement.Rooms" class="form-control"/>
+            </div>
+        </div>
+
+
+        <div class="form-group col-md-5 mx-auto">
+            <input type="submit" class="btn btn-success btn-ms btn-block"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

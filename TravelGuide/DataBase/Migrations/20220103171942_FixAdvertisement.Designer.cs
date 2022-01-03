@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211227171623_InitMigration")]
-    partial class InitMigration
+    [Migration("20220103171942_FixAdvertisement")]
+    partial class FixAdvertisement
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,27 @@ namespace DataBase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Schedule");
+                });
+
+            modelBuilder.Entity("DataBase.Models.Аdvertisement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Duration")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Info")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Advertisement");
                 });
 
             modelBuilder.Entity("DataBase.Models.Person", b =>

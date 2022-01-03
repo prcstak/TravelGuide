@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using DataBase.Access;
 using DataBase.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -42,16 +43,33 @@ namespace TravelGuide.Pages.Account
                         Password = Hash.GetHash(GetInfo.Password),
                         PhoneNumber = GetInfo.PhoneNumber
                     };
-                    
-                    Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
-                    if (userRole != null)
-                        person.Role = userRole;
+                    if (GetInfo.Email == "admin@admin")
+                    {
+                        db.Roles.AddRange(new []{
+                            new Role { Id = 1, Name = "admin"}, 
+                            new Role {Id = 2, Name = "user"}
+                            });
+                        await db.SaveChangesAsync();
+                        Role adminRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "admin");
+                        if (adminRole != null)
+                            person.Role = adminRole;
+                    }
+                    else
+                    {
+                        Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                        if (userRole != null)
+                            person.Role = userRole;
+                    }
                     db.Person.Add(person);
                         
                     await db.SaveChangesAsync();
                     if (GetInfo.RememberMe)
                     {
                         await Authentication.Authenticate(person, HttpContext);
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetInt32("id", person.Id);
                     }
                     return RedirectToPage("/Index");
                 }
