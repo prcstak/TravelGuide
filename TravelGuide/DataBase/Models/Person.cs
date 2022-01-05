@@ -1,4 +1,7 @@
-﻿namespace DataBase.Models
+﻿using System.Collections.Generic;
+using DataBase.Migrations;
+
+namespace DataBase.Models
 {
     public class Person
     {
@@ -11,6 +14,12 @@
         public string LastName { get; set; }
         
         public string Password { get; set; }
+        
+        public ICollection<Аdvertisement> Ads { get; set; }
+        public Person()
+        {
+            Ads = new List<Аdvertisement>();
+        }
         
         public int? RoleId { get; set; }
         public Role Role { get; set; }

@@ -7,9 +7,6 @@ namespace TravelGuide.Pages
 {
     public class Index : PageModel
     {
-        
-
-        [Authorize]
         public void OnGet()
         {
             
