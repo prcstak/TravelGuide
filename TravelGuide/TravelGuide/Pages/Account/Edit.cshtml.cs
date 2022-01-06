@@ -23,6 +23,10 @@ namespace TravelGuide.Pages.Account
 
         public async Task<IActionResult> OnGet()
         {
+            if (!(User.Identity.IsAuthenticated || HttpContext.Session.GetInt32("id") != null))
+            {
+                return RedirectToPage("/Account/Authorization");
+            }
             int? id;
             if (User.Identity.IsAuthenticated)
             {
@@ -33,6 +37,7 @@ namespace TravelGuide.Pages.Account
             {
                 id = HttpContext.Session.GetInt32("id");
             }
+
             Person = await db.Person.FirstOrDefaultAsync(p => p.Id == id);
 
             return Page();
@@ -40,7 +45,7 @@ namespace TravelGuide.Pages.Account
 
         public async Task<IActionResult> OnPost(int? id)
         {
-            Person = await db.Person.Include(u=>u.Role).FirstOrDefaultAsync(u => u.Id == id);
+            Person = await db.Person.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id);
             Person.PhoneNumber = GetInfo.PhoneNumber;
             Person.FirstName = GetInfo.FirstName;
             Person.LastName = GetInfo.LastName;

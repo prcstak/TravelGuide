@@ -1,4 +1,5 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http
 @model TravelGuide.Pages.Info.RentApartment.AdPage
 
 @{
@@ -13,11 +14,17 @@
 <body>
 <div class="container">
     <div class="row">
-        <br/>
         @{
             var add = Model.Advertisement;
             <div class="card mb-3">
                 <div class="row">
+                    <div class="col-md-9">
+                        @if (User.Identity.Name == add.PersonId.ToString()
+                             || HttpContext.Session.GetInt32("id") == add.PersonId)
+                        {
+                            <a class="btn btn-outline-success" asp-page="./Edit" asp-route-id=@add.Id>Редактировать описание</a>
+                        }
+                    </div>
                     <div class="col-md-9">
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
@@ -62,11 +69,6 @@
                                 <strong>Колличество комнат:</strong> @add.Rooms
                             </small>
                             <p class="card-text">@add.Info</p>
-                            @if (User.Identity.Name == add.PersonId.ToString()
-                                || HttpContext.Session.Id == add.PersonId.ToString())
-                            {
-                                <a asp-page="./Edit" asp-route-id=@add.Id>Edit</a>
-                            }
                         </div>
                     </div>
                 </div>

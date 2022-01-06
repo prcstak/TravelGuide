@@ -37,7 +37,7 @@
             </ul>
         </li>
         @if (User.Identity.IsAuthenticated
-             || Context.Session.GetString("id") != null)
+             || Context.Session.GetInt32("id") != null)
         {
             <li>
                 <a asp-page="/Account/Profile">Профиль</a>

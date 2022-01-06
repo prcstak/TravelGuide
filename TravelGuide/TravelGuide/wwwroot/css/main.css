@@ -2734,7 +2734,7 @@ input, select, textarea {
 
 			.sidebar {
 				border-top: solid 2px #e7eae8;
-				padding-top: 50px;
+				padding-top: 25px;
 			}
 
 		/* Nav */
@@ -3059,14 +3059,14 @@ input, select, textarea {
 		/* Main */
 
 			#main {
-				padding: 3em 0;
+				padding: 5em 0;
 			}
 
 		/* Sidebar */
 
 			.sidebar {
 				border-top: solid 2px #e7eae8;
-				padding-top: 50px;
+				padding-top: 25px;
 				margin-top: 30px;
 			}
 

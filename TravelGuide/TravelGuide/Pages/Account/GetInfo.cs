@@ -8,6 +8,7 @@ namespace TravelGuide.Pages.Account
         [Required(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }
         
+        [Required(ErrorMessage = "Номер необходим для создания объявлений")]
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

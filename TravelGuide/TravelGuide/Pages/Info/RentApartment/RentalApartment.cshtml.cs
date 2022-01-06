@@ -24,7 +24,7 @@ namespace TravelGuide.Pages
 
         public async Task OnGet()
         {
-            Advertisements = await db.Advertisement.ToListAsync();
+            Advertisements = await db.Advertisement.Include(p => p.Person).ToListAsync();
         }
     }
 }

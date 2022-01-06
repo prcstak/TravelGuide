@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using DataBase.Migrations;
@@ -16,8 +17,8 @@ namespace TravelGuide.Pages.Info.RentApartment
         private readonly DataBase.Access.Context db;
 
         private IWebHostEnvironment _appEnvironment;
-        
-        [BindProperty]
+
+        [BindProperty] 
         public Аdvertisement Advertisement { get; set; }
 
         public Create(DataBase.Access.Context _db, IWebHostEnvironment appEnvironment)
@@ -26,12 +27,22 @@ namespace TravelGuide.Pages.Info.RentApartment
             _appEnvironment = appEnvironment;
         }
 
-        public void OnGet()
-        {
+        private List<string> check = new List<string>() {"image/jpeg", "image/png"};
+        public string checkMessage;
 
+        public IActionResult OnGet()
+        {
+            if (!(User.Identity.IsAuthenticated || HttpContext.Session.GetInt32("id") != null))
+            {
+                return RedirectToPage("/Account/Authorization");
+            }
+            else
+            {
+                return Page();
+            }
         }
 
-        public async Task OnPost(IFormFileCollection files)
+        public async Task<IActionResult> OnPost(IFormFileCollection files)
         {
             int? id;
             if (User.Identity.IsAuthenticated)
@@ -45,10 +56,18 @@ namespace TravelGuide.Pages.Info.RentApartment
             }
 
             var person = await db.Person.FirstOrDefaultAsync(p => p.Id == id);
-            
+
             string paths = "";
+            var add = new Аdvertisement
+                { };
             foreach (var file in files)
             {
+                if (!check.Contains(file.ContentType))
+                {
+                    checkMessage = "Фото должны быть в формате .jpg или .png";
+                    return Page();
+                }
+
                 paths += file.FileName + ";";
                 using (var fileStream = new FileStream(
                     _appEnvironment.WebRootPath + @"\images\RentImg\" + file.FileName,
@@ -58,16 +77,15 @@ namespace TravelGuide.Pages.Info.RentApartment
                 }
             }
 
-            var add = new Аdvertisement
-            {
-                Address = paths.Remove(paths.Length - 1),
-                Info = Advertisement.Info,
-                Duration = Advertisement.Duration,
-                Rooms = Advertisement.Rooms,
-                Person = person
-            };
+            add.Address = paths.Remove(paths.Length - 1);
+            add.Info += Advertisement.Info;
+            add.Duration = Advertisement.Duration;
+            add.Rooms = Advertisement.Rooms;
+            add.Person = person;
             db.Advertisement.Add(add);
             db.SaveChanges();
+
+            return RedirectToPage("/Info/RentApartment/RentalApartment");
         }
     }
 }

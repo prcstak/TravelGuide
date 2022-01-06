@@ -16,12 +16,27 @@
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="form-group col-md-5 mx-auto">
             <label for="Files">Загрузить фото</label>
-            <input type="file" name="Files" id="Files" multiple/>
+            <input type="file" name="Files" id="Files" multiple/><br/>
+            <span class="text-danger">@Model.checkMessage</span>
         </div>
         <div class="form-group col-md-5 mx-auto">
             <label asp-for="Advertisement.Info">Описане</label>
-            <textarea asp-for="Advertisement.Info" class="form-control"></textarea>
+            <textarea asp-for="Advertisement.Info" class="form-control" id="Advertisement_Info" name="Advertisement.Info"></textarea>
         </div>
+        <label id='label'></label>
+        <script>
+        function charCount(text){
+          return text.replace(/[\.,!?; ]*/g, '').length;
+        }
+        function g(el){
+        return document.getElementById(el);
+        }
+        g('Advertisement_Info').onkeyup=function(){
+            if (this.value > "10"){
+                g('label').innerHTML=charCount(this.value);
+            }
+        }
+        </script>
         <div class="mx-auto row col-md-5">
             <div class="form-group col-md-5 mx-auto">
                 <label asp-for="Advertisement.Duration">Срок аренды</label>
