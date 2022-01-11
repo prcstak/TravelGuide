@@ -1,5 +1,7 @@
 ﻿@page
+@using System.Text.Json
 @using Microsoft.AspNetCore.Http
+@using TravelGuide.Pages.Info.RentApartment
 @model TravelGuide.Pages.Info.RentApartment.AdPage
 
 @{
@@ -29,9 +31,9 @@
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 @{
-                                    var mas = add.Address.Split(";");
+                                    var mas = JsonSerializer.Deserialize<Images>(add.Address);
                                     var fg = false;
-                                    foreach (var v in mas)
+                                    foreach (var v in mas.List)
                                     {
                                         var url = "/images/RentImg/" + v;
                                         if (!fg)

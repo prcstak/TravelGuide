@@ -3,15 +3,20 @@
 
 @{
 }
+<style>
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+</style>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
+<div xmlns="http://www.w3.org/1999/html">
     <form method="post" enctype="multipart/form-data">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="form-group col-md-5 mx-auto">
@@ -21,22 +26,9 @@
         </div>
         <div class="form-group col-md-5 mx-auto">
             <label asp-for="Advertisement.Info">Описане</label>
-            <textarea asp-for="Advertisement.Info" class="form-control" id="Advertisement_Info" name="Advertisement.Info"></textarea>
+            <textarea onkeyup="countChar(this)" asp-for="Advertisement.Info" class="form-control" id="Advertisement_Info" name="Advertisement.Info"></textarea>
+            <span id='label'>450</span>
         </div>
-        <label id='label'></label>
-        <script>
-        function charCount(text){
-          return text.replace(/[\.,!?; ]*/g, '').length;
-        }
-        function g(el){
-        return document.getElementById(el);
-        }
-        g('Advertisement_Info').onkeyup=function(){
-            if (this.value > "10"){
-                g('label').innerHTML=charCount(this.value);
-            }
-        }
-        </script>
         <div class="mx-auto row col-md-5">
             <div class="form-group col-md-5 mx-auto">
                 <label asp-for="Advertisement.Duration">Срок аренды</label>
@@ -44,15 +36,61 @@
             </div>
             <div class="form-group col-md-5 mx-auto">
                 <label asp-for="Advertisement.Rooms">Комнат</label>
-                <input type="tel" asp-for="Advertisement.Rooms" class="form-control"/>
+                <input type="text" asp-for="Advertisement.Rooms" class="form-control"/>
             </div>
         </div>
-
-
         <div class="form-group col-md-5 mx-auto">
             <input type="submit" class="btn btn-success btn-ms btn-block"/>
         </div>
     </form>
 </div>
-</body>
-</html>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="~/css/style.css"/>
+<script type="text/javascript" src="~/js/jquery.autocomplete.js"></script>
+<script>
+  function countChar(val) {
+    var len = val.value.length;
+    if (len > 450) {
+      val.value = val.value.substring(0, 450);
+    } else {
+      $('#label').text(450 - len);
+    }
+  };
+  function autocomplete(inp, arr) {
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        closeAllLists();
+        if (!val) { return false;}
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+        for (i = 0; i < arr.length; i++) {
+            b = document.createElement("DIV");
+            b.innerHTML = arr[i]
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            b.addEventListener("click", function(e) {
+                inp.value = this.getElementsByTagName("input")[0].value;
+                closeAllLists();
+            });
+            a.appendChild(b);
+        }
+    });
+    function closeAllLists(elmnt) {
+      var x = document.getElementsByClassName("autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+          x[i].parentNode.removeChild(x[i]);
+        }
+      }
+    }
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+        });
+  }
+  //----------
+  var countries = ["день", "неделя", "месяц"];
+  var rooms = ["1", "2", "3", "4", "5"];
+  autocomplete(document.getElementById("Advertisement_Duration"), countries);
+  autocomplete(document.getElementById("Advertisement_Rooms"), rooms);
+</script>

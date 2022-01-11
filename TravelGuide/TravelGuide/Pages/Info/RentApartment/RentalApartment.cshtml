@@ -1,7 +1,10 @@
 ﻿@page
 @model TravelGuide.Pages.RentalApartment
 @using System.Net
+@using System.Text.Json
 @using Microsoft.AspNetCore.Http
+@using Microsoft.VisualBasic
+@using TravelGuide.Pages.Info.RentApartment
 
 @{
     ViewData["Title"] = "Аренда";
@@ -36,9 +39,8 @@
                     <div class="row g-0">
                         <div class="col-md-4 mt-3">
                             @{
-                                var mas = add.Address.Split(";");
-                                var fg = false;
-                                var url = "/images/RentImg/" + mas[0];
+                                var mas = JsonSerializer.Deserialize<Images>(add.Address);
+                                var url = "/images/RentImg/" + mas.List.First();
                                 <img src="@url" alt="" class="img-fluid"/>
                             }
                         </div>
