@@ -9,6 +9,36 @@
 @{
     ViewData["Title"] = "Аренда";
 }
+<style>
+    input[type="submit"]{
+    text-decoration: none;
+      display: inline-block;
+      font-weight: 400;
+      color: #212529;
+      text-align: center;
+      vertical-align: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 0.25rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      color: #28a745;
+      border-color: #28a745;
+      text-decoration: none
+    }
+    input[type="submit"]:hover {
+          color: #fff;
+          background-color: #28a745;
+          border-color: #28a745;
+          text-decoration: none
+        }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-sm-12">
@@ -33,6 +63,27 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-9">
+            <form method="get">
+                <div class="form-inline form-group">
+                    <label class="control-label">Срок сдачи: </label>
+                    <select name="dur" asp-items="Model.Filter.Duration" class="custom-select custom-select-sm">
+                        <option value="">-любой-</option>
+                    </select>
+                    <label class="control-label">Комнат: </label>
+                    <select name="room" asp-items="Model.Filter.Rooms" class="custom-select custom-select-sm">
+                        <option value="">-любое-</option>
+                    </select>
+                    <p> </p>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <input type="submit" value="Фильтр"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-sm-12">
+            <strong>Все объявления по запросу:</strong><br/> <strong>Срок сдачи:</strong> @ViewData["dur"] <br/> <strong>Количество комнат:</strong> @ViewData["room"]
+        </div>
+        <div class="col-sm-12 col-lg-9">
             @foreach (var add in Model.Advertisements)
             {
                 <div class="card mb-3">
@@ -48,7 +99,17 @@
                             <div class="card-body">
                                 <a asp-page="./AdPage" asp-route-id=@add.Id class="text-dark">
                                     <small class="text-muted">Описание квартиры</small>
-                                    <p class="card-text">@add.Info</p>
+                                    @{
+                                        if (add.Info.Length > 200)
+                                        {
+                                            <p class="card-text">@(add.Info.Substring(200) + "...")</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text">@add.Info</p>
+                                        }
+                                    }
+
                                 </a>
                                 <small class="text-muted">
                                     <strong>Срок сдачи:</strong> @add.Duration
