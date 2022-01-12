@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace TravelGuide.Pages.Account
+namespace DataBase.Access
 {
     public class Hash
     {

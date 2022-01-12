@@ -1,0 +1,18 @@
+﻿@page
+@model TravelGuide.Pages.Test
+
+@{
+    Layout = null;
+}
+<input type="submit" id="submit" />
+<div id="result"></div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="~/css/style.css"/>
+<script type="text/javascript" src="~/js/jquery.autocomplete.js"></script>
+<script>
+ $(document).ready(function () {
+        $('#submit').click(function (e) {
+            $('#result').append("test");
+        });
+    });
+</script>
