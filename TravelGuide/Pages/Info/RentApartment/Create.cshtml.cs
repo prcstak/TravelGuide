@@ -75,7 +75,7 @@ namespace TravelGuide.Pages.Info.RentApartment
             
             db.SaveChanges();
 
-            return RedirectToPage("/Info/Hostel");
+            return RedirectToPage("./RentalApartment");
         }
 
         private async Task<string> GetJson(IFormFileCollection files)
