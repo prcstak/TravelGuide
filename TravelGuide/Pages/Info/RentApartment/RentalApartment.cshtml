@@ -121,7 +121,9 @@
                                     <strong>Контакты:</strong> @add.Person.PhoneNumber @add.Person.FirstName @add.Person.LastName
                                 </small><br/>
                                 @if (User.Identity.Name == add.PersonId.ToString()
-                                     || HttpContext.Session.GetInt32("id") == add.PersonId)
+                                     || HttpContext.Session.GetInt32("id") == add.PersonId
+                                     || User.Identity.Name == "1"
+                                     || HttpContext.Session.GetInt32("id") == 1)
                                 {
                                     <a asp-page="./Delete" class="btn btn-outline-secondary" asp-route-id=@add.Id>Удалить</a>
                                     <a asp-page="./Edit" class="btn btn-outline-secondary" asp-route-id=@add.Id>Изменить</a>
