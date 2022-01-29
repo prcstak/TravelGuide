@@ -47,15 +47,7 @@
                     <li>
                         <article class="box post-summary">
                             <h3>
-                                @if (User.Identity.IsAuthenticated
-                                     || HttpContext.Session.GetString("id") != null)
-                                {
-                                    <a class="btn btn-success btn-block" asp-page="./Create">Создать объявление</a>
-                                }
-                                else
-                                {
-                                    <a class="btn btn-outline-success btn-block" asp-page="/Account/Authorization">Создать объявление</a>
-                                }
+                                <a class="btn btn-outline-success btn-block" asp-page="/Account/Authorization">Создать объявление</a>
                             </h3>
                         </article>
                     </li>
@@ -63,76 +55,49 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-9">
-            <form method="get">
-                <div class="form-inline form-group">
-                    <label class="control-label">Срок сдачи: </label>
-                    <select name="dur" asp-items="Model.Filter.Duration" class="custom-select custom-select-sm">
-                        <option value="">-любой-</option>
-                    </select>
-                    <label class="control-label">Комнат: </label>
-                    <select name="room" asp-items="Model.Filter.Rooms" class="custom-select custom-select-sm">
-                        <option value="">-любое-</option>
-                    </select>
-                    <p> </p>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                        <input type="submit" value="Фильтр"/>
-                    </div>
+            <div class="form-inline form-group">
+                <label class="control-label">Срок сдачи: </label>
+                <select name="dur" asp-items="Model.Filter.Duration" class="custom-select custom-select-sm">
+                    <option value="">-любой-</option>
+                </select>
+                <label class="control-label">Комнат: </label>
+                <select name="room" asp-items="Model.Filter.Rooms" class="custom-select custom-select-sm">
+                    <option value="">-любое-</option>
+                </select>
+                <p> </p>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <input type="submit" value="Фильтр"/>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="col-lg-3 col-sm-12">
             <strong>Все объявления по запросу:</strong><br/> <strong>Срок сдачи:</strong> @ViewData["dur"] <br/> <strong>Количество комнат:</strong> @ViewData["room"]
         </div>
         <div class="col-sm-12 col-lg-9">
-            @foreach (var add in Model.Advertisements)
-            {
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4 mt-3">
-                            @{
-                                var mas = JsonSerializer.Deserialize<Images>(add.Address);
-                                var url = "/images/RentImg/" + mas.List.First();
-                                <img src="@url" alt="" class="img-fluid"/>
-                            }
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <a asp-page="./AdPage" asp-route-id=@add.Id class="text-dark">
-                                    <small class="text-muted">Описание квартиры</small>
-                                    @{
-                                        if (add.Info.Length > 200)
-                                        {
-                                            <p class="card-text">@(add.Info.Substring(200) + "...")</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="card-text">@add.Info</p>
-                                        }
-                                    }
-
-                                </a>
-                                <small class="text-muted">
-                                    <strong>Срок сдачи:</strong> @add.Duration
-                                </small><br/>
-                                <small class="text-muted">
-                                    <strong>Колличество комнат:</strong> @add.Rooms
-                                </small><br/>
-                                <small class="text-muted">
-                                    <strong>Контакты:</strong> @add.Person.PhoneNumber @add.Person.FirstName @add.Person.LastName
-                                </small><br/>
-                                @if (User.Identity.Name == add.PersonId.ToString()
-                                     || HttpContext.Session.GetInt32("id") == add.PersonId
-                                     || User.Identity.Name == "1"
-                                     || HttpContext.Session.GetInt32("id") == 1)
-                                {
-                                    <a asp-page="./Delete" class="btn btn-outline-secondary" asp-route-id=@add.Id>Удалить</a>
-                                    <a asp-page="./Edit" class="btn btn-outline-secondary" asp-route-id=@add.Id>Изменить</a>
-                                }
-                            </div>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4 mt-3">
+                        <img src="/images/RentImg/xl_5bb88f5724e02d5324b613c2a6e6e984.jpg" alt="" class="img-fluid"/>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <a asp-page="./AdPage" class="text-dark">
+                                <small class="text-muted">Описание квартиры</small>
+                                <p class="card-text">Имеется всё для комфортного проживания, необходимая мебель, кухонный гарнитур, техника. Квартира светлая, уютная рассматриваем чистоплотных аккуратных жильцов!!! Все остальные вопросы по телефону.</p>
+                            </a>
+                            <small class="text-muted">
+                                <strong>Срок сдачи:</strong> неделя
+                            </small><br/>
+                            <small class="text-muted">
+                                <strong>Колличество комнат:</strong> 3
+                            </small><br/>
+                            <small class="text-muted">
+                                <strong>Контакты:</strong> 88005553535 Иван Иванов
+                            </small><br/>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
 </div>

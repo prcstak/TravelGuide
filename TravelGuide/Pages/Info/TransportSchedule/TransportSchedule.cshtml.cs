@@ -12,42 +12,24 @@ namespace TravelGuide.Pages
 {
     public class TransportSchedule : PageModel
     {
-        [BindProperty]
-        public List<Schedule> Schedules { get; set; }
-        
-        private readonly DataBase.Access.Context db;
-        public TransportSchedule(DataBase.Access.Context _db)
-        {
-            db = _db;
-        }
-        
-        public Person Person { get; set; }
-        public async Task<IActionResult> OnGet()
-        {
-            int? id;
-            if (User.Identity.IsAuthenticated)
-            {
-                id = Int32.Parse(User.Identity.Name);
-            }
+        [BindProperty] public List<Schedule> Schedules { get; set; }
 
-            else
+
+        public void OnGet()
+        {
+            Schedules = new List<Schedule>()
             {
-                id = HttpContext.Session.GetInt32("id");
-            }
-            Person = db.Person
-                .Include(p => p.Role)
-                .FirstOrDefault(p => p.Id == id);
-            if (Person?.RoleId == 1)
-            {
-                return RedirectToPage("./TransportScheduleAdmin");
-            }
-            Schedules =  await db.Schedule.ToListAsync();
-            return Page();
+                new Schedule() {From = "Спортивная", To = "Комбинат Здоровье", Time = "10:00"},
+                new Schedule() {From = "Спортивная", To = "Комбинат Здоровье", Time = "11:00"},
+                new Schedule() {From = "Спортивная", To = "Комбинат Здоровье", Time = "12:00"},
+                new Schedule() {From = "Комбинат Здоровье", To = "Спортивная", Time = "10:20"},
+                new Schedule() {From = "Комбинат Здоровье", To = "Спортивная", Time = "11:20"},
+                new Schedule() {From = "Комбинат Здоровье", To = "Спортивная", Time = "12:20"},
+            };
         }
 
         public void OnPost()
         {
-            
         }
     }
 }

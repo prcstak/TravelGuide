@@ -17,21 +17,14 @@
 <div class="container">
     <div class="row">
         @{
-            var add = Model.Advertisement;
+            
             <div class="card mb-3">
                 <div class="row">
-                    <div class="col-md-9">
-                        @if (User.Identity.Name == add.PersonId.ToString()
-                             || HttpContext.Session.GetInt32("id") == add.PersonId)
-                        {
-                            <a class="btn btn-outline-success" asp-page="./Edit" asp-route-id=@add.Id>Редактировать описание</a>
-                        }
-                    </div>
                     <div class="col-md-9">
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 @{
-                                    var mas = JsonSerializer.Deserialize<Images>(add.Address);
+                                    var mas = JsonSerializer.Deserialize<Images>("{\"List\":[\"xl_5bb88f5724e02d5324b613c2a6e6e984.jpg\",\"xl_276a403db950200ca5b184eb226fdd4b.jpg\",\"xl_bf1e402bf4b503e521eb6168f5fb3665.jpg\"]}");
                                     var fg = false;
                                     foreach (var v in mas.List)
                                     {
@@ -65,12 +58,12 @@
                     <div class="col-md-9">
                         <div class="card-body">
                             <small class="text-muted">
-                                <strong>Срок сдачи:</strong> @add.Duration
+                                <strong>Срок сдачи:</strong> неделя
                             </small><br/>
                             <small class="text-muted">
-                                <strong>Колличество комнат:</strong> @add.Rooms
+                                <strong>Колличество комнат:</strong> 3
                             </small>
-                            <p class="card-text">@add.Info</p>
+                            <p class="card-text">Имеется всё для комфортного проживания, необходимая мебель, кухонный гарнитур, техника. Квартира светлая, уютная рассматриваем чистоплотных аккуратных жильцов!!! Все остальные вопросы по телефону.</p>
                         </div>
                     </div>
                 </div>
